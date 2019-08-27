@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html class="no-js" lang="es-AR"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=11,IE=10,IE=9,IE=8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-title" content="コードログ">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<title>Django: formulario de búsqueda en ClassView ListView - Código de registro</title>
+<link rel="dns-prefetch" href="https://apps.bdimg.com/">
+<link rel="dns-prefetch" href="https://cdn-codeday-me.oss-cn-beijing.aliyuncs.com/">
+<link rel="dns-prefetch" href="https://s.w.org/">
+<link rel="stylesheet" id="_bootstrap-css" href="Django:%20formulario%20de%20b%C3%BAsqueda%20en%20ClassView%20ListView%20-%20C%C3%B3digo%20de%20registro_files/bootstrap.css" type="text/css" media="all">
+<link rel="stylesheet" id="_fontawesome-css" href="Django:%20formulario%20de%20b%C3%BAsqueda%20en%20ClassView%20ListView%20-%20C%C3%B3digo%20de%20registro_files/font-awesome.css" type="text/css" media="all">
+<link rel="stylesheet" id="_main-css" href="Django:%20formulario%20de%20b%C3%BAsqueda%20en%20ClassView%20ListView%20-%20C%C3%B3digo%20de%20registro_files/main.css" type="text/css" media="all">
+<link rel="prev" title="c # – ¿Predicados condicionales en LINQ?" href="https://codeday.me/es/qa/20190129/156832.html">
+<link rel="next" title="python: ¿cómo realizar la desinstalación con virtualenv en la pila de cedros de Heroku?" href="https://codeday.me/es/qa/20190129/136560.html">
+<link rel="canonical" href="Django:%20formulario%20de%20b%C3%BAsqueda%20en%20ClassView%20ListView%20-%20C%C3%B3digo%20de%20registro_files/131782_006.html">
+<link rel="shortlink" href="https://codeday.me/es/?p=131782">
+<meta name="keywords" content="django, django-class-based-views, forms, listview, Q&amp;A">
+<meta name="description" content="Estoy intentando realizar un ListView basado en clase que muestra una selección de un conjunto de tablas. Si se solicita el sitio la primera vez, se debe mostrar el conjunto de dat">
+<link rel="shortcut icon" href="https://codeday.me/es/favicon.ico">
+<!--[if lt IE 9]><script src="https://codeday.me/es/wp-content/themes/es/js/libs/html5.min.js"></script><![endif]-->
+<link rel="preload" href="Django:%20formulario%20de%20b%C3%BAsqueda%20en%20ClassView%20ListView%20-%20C%C3%B3digo%20de%20registro_files/integrator.js" as="script"><script type="text/javascript" async="" src="Django:%20formulario%20de%20b%C3%BAsqueda%20en%20ClassView%20ListView%20-%20C%C3%B3digo%20de%20registro_files/analytics.js"></script><script src="Django:%20formulario%20de%20b%C3%BAsqueda%20en%20ClassView%20ListView%20-%20C%C3%B3digo%20de%20registro_files/osd.js"></script><script src="Django:%20formulario%20de%20b%C3%BAsqueda%20en%20ClassView%20ListView%20-%20C%C3%B3digo%20de%20registro_files/show_ads_impl.js" id="google_shimpl"></script><script type="text/javascript" src="Django:%20formulario%20de%20b%C3%BAsqueda%20en%20ClassView%20ListView%20-%20C%C3%B3digo%20de%20registro_files/integrator.js"></script><link rel="preload" href="Django:%20formulario%20de%20b%C3%BAsqueda%20en%20ClassView%20ListView%20-%20C%C3%B3digo%20de%20registro_files/integrator_002.js" as="script"><script type="text/javascript" src="Django:%20formulario%20de%20b%C3%BAsqueda%20en%20ClassView%20ListView%20-%20C%C3%B3digo%20de%20registro_files/integrator_002.js"></script><link rel="preload" href="Django:%20formulario%20de%20b%C3%BAsqueda%20en%20ClassView%20ListView%20-%20C%C3%B3digo%20de%20registro_files/show_ads_impl.js" as="script"><style>.github-box *{-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box;}.github-box{font-family:helvetica,arial,sans-serif;font-size:13px;line-height:18px;background:#fafafa;border:1px solid #ddd;color:#666;border-radius:3px}.github-box a{color:#4183c4;border:0;text-decoration:none}.github-box .github-box-title{position:relative;border-bottom:1px solid #ddd;border-radius:3px 3px 0 0;background:#fcfcfc;background:-moz-linear-gradient(#fcfcfc,#ebebeb);background:-webkit-linear-gradient(#fcfcfc,#ebebeb);}.github-box .github-box-title h3{word-wrap:break-word;font-family:helvetica,arial,sans-serif;font-weight:normal;font-size:16px;color:gray;margin:0;padding:10px 10px 10px 30px;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAXBAMAAAD0LQLXAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAASUExURQAAAL29vc3NzcLCwsjIyNbW1pvTNOEAAAABdFJOUwBA5thmAAAATElEQVQI12MIFoQAEQZFYwcGEGBkUDRUQLCcsYjRXhbqKkEGZQYGqJgSnKXCwGgsAGYpqyobG4WGhioyhBhDgClI3EQAqpaZwQBEAQARmA4G2o55nQAAAABJRU5ErkJggg==) 7px center no-repeat; width: auto;}.github-box .github-box-title h3 .repo{font-weight:bold}.github-box .github-box-title .github-stats{float:right;position:absolute;top:8px;right:10px;font-size:11px;font-weight:bold;line-height:21px;height:auto;min-height:21px}.github-box .github-box-title .github-stats a{display:inline-block;height:21px;color:#666;border:1px solid #ddd;border-radius:3px;padding:0 5px 0 18px;background: white url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAqBAMAAABB12bjAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAYUExURf///5mZmdbW1u/v7/r6+rGxscXFxaSkpHLccIMAAABsSURBVBjTY2CgBmBODTOAsFgSi9TFHMBMc1Fmk8BiEItJUMhQWFFQAZXJoC7q7FJYhNBmgG7YQAIWMYTvEExXIbh8oAJWQQe4IGsIlKmowAZVwaKowgxlMgkKmwtCjRAUYBSEqnVkYBAm39EALMwNXwql3eYAAAAASUVORK5CYII=) no-repeat}.github-box .github-box-title .github-stats .watchers{border-right:1px solid #ddd}.github-box .github-box-title .github-stats .forks{background-position:-4px -21px;padding-left:15px}.github-box .github-box-content{padding:10px;font-weight:300}.github-box .github-box-content p{margin:0}.github-box .github-box-content .link{font-weight:bold}.github-box .github-box-download{position:relative;border-top:1px solid #ddd;background:white;border-radius:0 0 3px 3px;padding:10px;height:auto;min-height:24px;}.github-box .github-box-download .updated{word-wrap:break-word;margin:0;font-size:11px;color:#666;line-height:24px;font-weight:300;width:auto}.github-box .github-box-download .updated strong{font-weight:bold;color:#000}.github-box .github-box-download .download{float:right;position:absolute;top:10px;right:10px;height:24px;line-height:24px;font-size:12px;color:#666;font-weight:bold;text-shadow:0 1px 0 rgba(255,255,255,0.9);padding:0 10px;border:1px solid #ddd;border-bottom-color:#bbb;border-radius:3px;background:#f5f5f5;background:-moz-linear-gradient(#f5f5f5,#e5e5e5);background:-webkit-linear-gradient(#f5f5f5,#e5e5e5);}.github-box .github-box-download .download:hover{color:#527894;border-color:#cfe3ed;border-bottom-color:#9fc7db;background:#f1f7fa;background:-moz-linear-gradient(#f1f7fa,#dbeaf1);background:-webkit-linear-gradient(#f1f7fa,#dbeaf1);}@media (max-width: 767px) {.github-box .github-box-title{height:auto;min-height:60px}.github-box .github-box-title h3 .repo{display:block}.github-box .github-box-title .github-stats a{display:block;clear:right;float:right;}.github-box .github-box-download{height:auto;min-height:46px;}.github-box .github-box-download .download{top:32px;}}</style><script async="" data-requirecontext="_" data-requiremodule="main" src="Django:%20formulario%20de%20b%C3%BAsqueda%20en%20ClassView%20ListView%20-%20C%C3%B3digo%20de%20registro_files/main.js"></script><script async="" data-requirecontext="_" data-requiremodule="prettyprint" src="Django:%20formulario%20de%20b%C3%BAsqueda%20en%20ClassView%20ListView%20-%20C%C3%B3digo%20de%20registro_files/prettyprint.js"></script><script async="" data-requirecontext="_" data-requiremodule="signpop" src="Django:%20formulario%20de%20b%C3%BAsqueda%20en%20ClassView%20ListView%20-%20C%C3%B3digo%20de%20registro_files/signpop.js"></script><script async="" data-requirecontext="_" data-requiremodule="comment" src="Django:%20formulario%20de%20b%C3%BAsqueda%20en%20ClassView%20ListView%20-%20C%C3%B3digo%20de%20registro_files/comment.js"></script></head>
+<body class="post-template-default single single-post postid-131782 single-format-standard comment-open site-layout-2">
+<header class="header">
+<div class="famousmotto">Premature optimization is the root of all evil!</div>
+<div class="container">
+	<h3 class="logo"><a href="https://codeday.me/es" title="Código de registro">Código de registro</a></h3> 
+	<ul class="site-nav site-navbar topmenu">
+		<li class="page_item"><a href="https://codeday.me/es/tag/linux">Linux</a></li>
+		<li class="page_item"><a href="https://codeday.me/es/tag/python">Python</a></li>
+		<li class="page_item"><a href="https://codeday.me/es/tag/java">Java</a></li> 
+		<li class="page_item"><a href="https://codeday.me/es/tag/php">PHP</a></li>
+		<li class="page_item"><a href="https://codeday.me/es/tag/docker">Docker</a></li>
+		<li class="page_item"><a href="https://codeday.me/es/tag/nginx">Nginx</a></li>
+		<li class="page_item"><a href="https://codeday.me/es/tag/mysql">Mysql</a></li>
+		<li class="page_item"><a href="https://codeday.me/es/tag/javascript">JavaScript</a></li>
+		<li class="page_item"><a href="https://codeday.me/es/tag/android">Android</a></li>
+<li class="navto-search"><a href="javascript:;" class="search-show active"><i class="fa fa-search"></i></a></li>	
+</ul>
+	<i class="fa fa-bars m-icon-nav"></i>
+</div> 
+</header>
+<div class="site-search">
+	<div class="container">
+		<form method="get" class="site-search-form" action="https://codeday.me/es/"><input class="search-input" name="s" placeholder="" type="text"><button class="search-btn" type="submit"><i class="fa fa-search"></i></button></form>	</div>
+</div>
+<section class="container">
+	<div class="content-wrap">
+	<div class="content">
+				<header class="article-header">
+			<h4 class="article-title"><a href="https://codeday.me/es/qa/20190129/131782.html">Django: formulario de búsqueda en ClassView ListView</a></h4>	
+			<div class="article-meta"> 
+				<span class="item">Tiempo: 2019-01-29 23:51:09.0</span><span class="article-tags article-meta">Etiqueta：<a href="https://codeday.me/es/tag/listview" rel="tag">listview</a> <a href="https://codeday.me/es/tag/django" rel="tag">django</a> <a href="https://codeday.me/es/tag/forms" rel="tag">forms</a> <a href="https://codeday.me/es/tag/django-class-based-views" rel="tag">django-class-based-views</a> </span><br><span class="article-es-url">Traduccion: <a href="http://stackoverflow.com/questions/13416502/django-search-form-in-class-based-listview" target="_blank">Fuente</a></span><i class="fa fa-warning"></i><span class="article-es-url"><a href="https://publish.codeday.me/post/publist?site=es&amp;id=131782" target="_blank">Corrección de traducción</a></span>			</div> 
+		</header>		
+		<article class="article-2018">
+		<!-- codeday-me-top -->
+<ins class="adsbygoogle" style="display:inline-block;width:800px;height:90px" data-ad-client="ca-pub-4364680260425390" data-ad-slot="7215561100" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:800px;background-color:transparent;"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:800px;background-color:transparent;"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;border:0px;width:800px;height:90px;" width="800" height="90" frameborder="0"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+		<div class="question">Estoy intentando realizar un ListView basado en 
+clase que muestra una selección de un conjunto de tablas. Si se solicita
+ el sitio la primera vez, se debe mostrar el conjunto de datos. 
+Preferiría un envío POST, pero GET también está bien.<p></p>
+<p>Ese es un problema, que fue fácil de manejar con vistas basadas en 
+funciones, sin embargo, con vistas basadas en clases me cuesta mucho 
+entenderlo.</p>
+<p>Mi problema es que recibo varios errores, que son causados ​​por mi 
+comprensión limitada de las vistas basadas en clases. He leído varias 
+documentaciones y entiendo las vistas de las solicitudes de consulta 
+directas, pero tan pronto como me gustaría agregar un formulario a la 
+declaración de consulta, me encuentro con un error diferente. Para el 
+código a continuación, recibo un ValueError: No puedo usar Ninguno como 
+valor de consulta.</p>
+<p>¿Cuál sería el flujo de trabajo de mejores prácticas para un ListView
+ basado en clase según las entradas de formulario (de lo contrario, se 
+seleccionará la base de datos completa)?</p>
+<p>Este es mi código de muestra:</p>
+<p>modelos.py</p>
+<p></p>
+<pre class="prettyprint"><code><span class="kwd">class</span><span class="pln"> </span><span class="typ">Profile</span><span class="pun">(</span><span class="pln">models</span><span class="pun">.</span><span class="typ">Model</span><span class="pun">):</span><span class="pln">
+    name </span><span class="pun">=</span><span class="pln"> models</span><span class="pun">.</span><span class="typ">CharField</span><span class="pun">(</span><span class="pln">_</span><span class="pun">(</span><span class="str">'Name'</span><span class="pun">),</span><span class="pln"> max_length</span><span class="pun">=</span><span class="lit">255</span><span class="pun">)</span><span class="pln">
+
+    </span><span class="kwd">def</span><span class="pln"> __unicode__</span><span class="pun">(</span><span class="kwd">self</span><span class="pun">):</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> </span><span class="str">'%name'</span><span class="pln"> </span><span class="pun">%</span><span class="pln"> </span><span class="pun">{</span><span class="str">'name'</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">self</span><span class="pun">.</span><span class="pln">name</span><span class="pun">}</span><span class="pln">
+
+    </span><span class="lit">@staticmethod</span><span class="pln">
+    </span><span class="kwd">def</span><span class="pln"> get_queryset</span><span class="pun">(</span><span class="kwd">params</span><span class="pun">):</span><span class="pln">
+
+        date_created </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">params</span><span class="pun">.</span><span class="kwd">get</span><span class="pun">(</span><span class="str">'date_created'</span><span class="pun">)</span><span class="pln">
+        keyword </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">params</span><span class="pun">.</span><span class="kwd">get</span><span class="pun">(</span><span class="str">'keyword'</span><span class="pun">)</span><span class="pln">
+        qset </span><span class="pun">=</span><span class="pln"> Q</span><span class="pun">(</span><span class="pln">pk__gt </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0</span><span class="pun">)</span><span class="pln">
+        </span><span class="kwd">if</span><span class="pln"> keyword</span><span class="pun">:</span><span class="pln">
+            qset </span><span class="pun">&amp;=</span><span class="pln"> Q</span><span class="pun">(</span><span class="pln">title__icontains </span><span class="pun">=</span><span class="pln"> keyword</span><span class="pun">)</span><span class="pln">
+        </span><span class="kwd">if</span><span class="pln"> date_created</span><span class="pun">:</span><span class="pln">
+            qset </span><span class="pun">&amp;=</span><span class="pln"> Q</span><span class="pun">(</span><span class="pln">date_created__gte </span><span class="pun">=</span><span class="pln"> date_created</span><span class="pun">)</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> qset</span></code></pre>
+<p>forms.py</p>
+<p></p>
+<pre class="prettyprint"><code><span class="kwd">class</span><span class="pln"> </span><span class="typ">ProfileSearchForm</span><span class="pun">(</span><span class="pln">forms</span><span class="pun">.</span><span class="typ">Form</span><span class="pun">):</span><span class="pln">
+    name </span><span class="pun">=</span><span class="pln"> forms</span><span class="pun">.</span><span class="typ">CharField</span><span class="pun">(</span><span class="pln">required</span><span class="pun">=</span><span class="kwd">False</span><span class="pun">)</span></code></pre>
+<p>vistas.py</p>
+<p></p>
+<pre class="prettyprint"><code><span class="kwd">class</span><span class="pln"> </span><span class="typ">ProfileList</span><span class="pun">(</span><span class="typ">ListView</span><span class="pun">):</span><span class="pln">
+    model </span><span class="pun">=</span><span class="pln"> </span><span class="typ">Profile</span><span class="pln">
+    form_class </span><span class="pun">=</span><span class="pln"> </span><span class="typ">ProfileSearchForm</span><span class="pln">
+    context_object_name </span><span class="pun">=</span><span class="pln"> </span><span class="str">'profiles'</span><span class="pln">
+    template_name </span><span class="pun">=</span><span class="pln"> </span><span class="str">'pages/profile/list_profiles.html'</span><span class="pln">
+    profiles </span><span class="pun">=</span><span class="pln"> </span><span class="pun">[]</span><span class="pln">
+
+
+    </span><span class="kwd">def</span><span class="pln"> post</span><span class="pun">(</span><span class="kwd">self</span><span class="pun">,</span><span class="pln"> request</span><span class="pun">,</span><span class="pln"> </span><span class="pun">*</span><span class="pln">args</span><span class="pun">,</span><span class="pln"> </span><span class="pun">**</span><span class="pln">kwargs</span><span class="pun">):</span><span class="pln">
+        </span><span class="kwd">self</span><span class="pun">.</span><span class="pln">show_results </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">False</span><span class="pln">
+        </span><span class="kwd">self</span><span class="pun">.</span><span class="pln">object_list </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">self</span><span class="pun">.</span><span class="pln">get_queryset</span><span class="pun">()</span><span class="pln">
+        form </span><span class="pun">=</span><span class="pln"> form_class</span><span class="pun">(</span><span class="kwd">self</span><span class="pun">.</span><span class="pln">request</span><span class="pun">.</span><span class="pln">POST </span><span class="kwd">or</span><span class="pln"> </span><span class="kwd">None</span><span class="pun">)</span><span class="pln">
+        </span><span class="kwd">if</span><span class="pln"> form</span><span class="pun">.</span><span class="pln">is_valid</span><span class="pun">():</span><span class="pln">
+            </span><span class="kwd">self</span><span class="pun">.</span><span class="pln">show_results </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">True</span><span class="pln">
+            </span><span class="kwd">self</span><span class="pun">.</span><span class="pln">profiles </span><span class="pun">=</span><span class="pln"> </span><span class="typ">Profile</span><span class="pun">.</span><span class="pln">objects</span><span class="pun">.</span><span class="pln">filter</span><span class="pun">(</span><span class="pln">name__icontains</span><span class="pun">=</span><span class="pln">form</span><span class="pun">.</span><span class="pln">cleaned_data</span><span class="pun">[</span><span class="str">'name'</span><span class="pun">])</span><span class="pln">
+        </span><span class="kwd">else</span><span class="pun">:</span><span class="pln">
+            </span><span class="kwd">self</span><span class="pun">.</span><span class="pln">profiles </span><span class="pun">=</span><span class="pln"> </span><span class="typ">Profile</span><span class="pun">.</span><span class="pln">objects</span><span class="pun">.</span><span class="pln">all</span><span class="pun">()</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">self</span><span class="pun">.</span><span class="pln">render_to_response</span><span class="pun">(</span><span class="kwd">self</span><span class="pun">.</span><span class="pln">get_context_data</span><span class="pun">(</span><span class="pln">object_list</span><span class="pun">=</span><span class="kwd">self</span><span class="pun">.</span><span class="pln">object_list</span><span class="pun">,</span><span class="pln"> form</span><span class="pun">=</span><span class="pln">form</span><span class="pun">))</span><span class="pln">
+
+    </span><span class="kwd">def</span><span class="pln"> get_context_data</span><span class="pun">(</span><span class="kwd">self</span><span class="pun">,</span><span class="pln"> </span><span class="pun">**</span><span class="pln">kwargs</span><span class="pun">):</span><span class="pln">
+        context </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">super</span><span class="pun">(</span><span class="typ">ProfileList</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">self</span><span class="pun">).</span><span class="pln">get_context_data</span><span class="pun">(**</span><span class="pln">kwargs</span><span class="pun">)</span><span class="pln">
+        </span><span class="kwd">if</span><span class="pln"> </span><span class="kwd">not</span><span class="pln"> </span><span class="kwd">self</span><span class="pun">.</span><span class="pln">profiles</span><span class="pun">:</span><span class="pln">
+            </span><span class="kwd">self</span><span class="pun">.</span><span class="pln">profiles </span><span class="pun">=</span><span class="pln"> </span><span class="typ">Profile</span><span class="pun">.</span><span class="pln">objects</span><span class="pun">.</span><span class="pln">all</span><span class="pun">()</span><span class="pln">
+        context</span><span class="pun">.</span><span class="pln">update</span><span class="pun">({</span><span class="pln">
+            </span><span class="str">'profiles'</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">self</span><span class="pun">.</span><span class="pln">profiles
+        </span><span class="pun">})</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> context</span></code></pre>
+<p>A continuación agregué el FBV que hace el trabajo. ¿Cómo puedo traducir esta funcionalidad en un CBV?<br>Parece ser tan simple en vistas basadas en funciones, pero no en vistas basadas en clases.</p>
+<p></p>
+<pre class="prettyprint"><code><span class="kwd">def</span><span class="pln"> list_profiles</span><span class="pun">(</span><span class="pln">request</span><span class="pun">):</span><span class="pln">
+    form_class </span><span class="pun">=</span><span class="pln"> </span><span class="typ">ProfileSearchForm</span><span class="pln">
+    model </span><span class="pun">=</span><span class="pln"> </span><span class="typ">Profile</span><span class="pln">
+    template_name </span><span class="pun">=</span><span class="pln"> </span><span class="str">'pages/profile/list_profiles.html'</span><span class="pln">
+    paginate_by </span><span class="pun">=</span><span class="pln"> </span><span class="lit">10</span><span class="pln">
+
+    form </span><span class="pun">=</span><span class="pln"> form_class</span><span class="pun">(</span><span class="pln">request</span><span class="pun">.</span><span class="pln">POST </span><span class="kwd">or</span><span class="pln"> </span><span class="kwd">None</span><span class="pun">)</span><span class="pln">
+    </span><span class="kwd">if</span><span class="pln"> form</span><span class="pun">.</span><span class="pln">is_valid</span><span class="pun">():</span><span class="pln">
+        profile_list </span><span class="pun">=</span><span class="pln"> model</span><span class="pun">.</span><span class="pln">objects</span><span class="pun">.</span><span class="pln">filter</span><span class="pun">(</span><span class="pln">name__icontains</span><span class="pun">=</span><span class="pln">form</span><span class="pun">.</span><span class="pln">cleaned_data</span><span class="pun">[</span><span class="str">'name'</span><span class="pun">])</span><span class="pln">
+    </span><span class="kwd">else</span><span class="pun">:</span><span class="pln">
+        profile_list </span><span class="pun">=</span><span class="pln"> model</span><span class="pun">.</span><span class="pln">objects</span><span class="pun">.</span><span class="pln">all</span><span class="pun">()</span><span class="pln">
+
+    paginator </span><span class="pun">=</span><span class="pln"> </span><span class="typ">Paginator</span><span class="pun">(</span><span class="pln">profile_list</span><span class="pun">,</span><span class="pln"> </span><span class="lit">10</span><span class="pun">)</span><span class="pln"> </span><span class="com"># Show 10 contacts per page</span><span class="pln">
+    page </span><span class="pun">=</span><span class="pln"> request</span><span class="pun">.</span><span class="pln">GET</span><span class="pun">.</span><span class="kwd">get</span><span class="pun">(</span><span class="str">'page'</span><span class="pun">)</span><span class="pln">
+    </span><span class="kwd">try</span><span class="pun">:</span><span class="pln">
+        profiles </span><span class="pun">=</span><span class="pln"> paginator</span><span class="pun">.</span><span class="pln">page</span><span class="pun">(</span><span class="pln">page</span><span class="pun">)</span><span class="pln">
+    </span><span class="kwd">except</span><span class="pln"> </span><span class="typ">PageNotAnInteger</span><span class="pun">:</span><span class="pln">
+        profiles </span><span class="pun">=</span><span class="pln"> paginator</span><span class="pun">.</span><span class="pln">page</span><span class="pun">(</span><span class="lit">1</span><span class="pun">)</span><span class="pln">
+    </span><span class="kwd">except</span><span class="pln"> </span><span class="typ">EmptyPage</span><span class="pun">:</span><span class="pln">
+        profiles </span><span class="pun">=</span><span class="pln"> paginator</span><span class="pun">.</span><span class="pln">page</span><span class="pun">(</span><span class="pln">paginator</span><span class="pun">.</span><span class="pln">num_pages</span><span class="pun">)</span><span class="pln">
+
+    </span><span class="kwd">return</span><span class="pln"> render_to_response</span><span class="pun">(</span><span class="pln">template_name</span><span class="pun">,</span><span class="pln"> 
+            </span><span class="pun">{</span><span class="str">'form'</span><span class="pun">:</span><span class="pln"> form</span><span class="pun">,</span><span class="pln"> </span><span class="str">'profiles'</span><span class="pun">:</span><span class="pln"> suppliers</span><span class="pun">,},</span><span class="pln"> 
+            context_instance</span><span class="pun">=</span><span class="typ">RequestContext</span><span class="pun">(</span><span class="pln">request</span><span class="pun">))</span></code></pre>
+</div>
+<div class="answers_count">Mejor respuesta</div>
+<div class="answers">Creo que su objetivo es tratar de filtrar el conjunto de consultas según el envío del formulario, si es así, utilizando GET:<p></p>
+<p></p>
+<pre class="prettyprint"><code><span class="kwd">class</span><span class="pln"> </span><span class="typ">ProfileSearchView</span><span class="pun">(</span><span class="typ">ListView</span><span class="pun">)</span><span class="pln">
+    template_name </span><span class="pun">=</span><span class="pln"> </span><span class="str">'/your/template.html'</span><span class="pln">
+    model </span><span class="pun">=</span><span class="pln"> </span><span class="typ">Person</span><span class="pln">
+
+    </span><span class="kwd">def</span><span class="pln"> get_queryset</span><span class="pun">(</span><span class="kwd">self</span><span class="pun">):</span><span class="pln">
+        </span><span class="kwd">try</span><span class="pun">:</span><span class="pln">
+            name </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">self</span><span class="pun">.</span><span class="pln">kwargs</span><span class="pun">[</span><span class="str">'name'</span><span class="pun">]</span><span class="pln">
+        </span><span class="kwd">except</span><span class="pun">:</span><span class="pln">
+            name </span><span class="pun">=</span><span class="pln"> </span><span class="str">''</span><span class="pln">
+        </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">name </span><span class="pun">!=</span><span class="pln"> </span><span class="str">''</span><span class="pun">):</span><span class="pln">
+            object_list </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">self</span><span class="pun">.</span><span class="pln">model</span><span class="pun">.</span><span class="pln">objects</span><span class="pun">.</span><span class="pln">filter</span><span class="pun">(</span><span class="pln">name__icontains </span><span class="pun">=</span><span class="pln"> name</span><span class="pun">)</span><span class="pln">
+        </span><span class="kwd">else</span><span class="pun">:</span><span class="pln">
+            object_list </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">self</span><span class="pun">.</span><span class="pln">model</span><span class="pun">.</span><span class="pln">objects</span><span class="pun">.</span><span class="pln">all</span><span class="pun">()</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> object_list</span></code></pre>
+<p>Luego, todo lo que debe hacer es escribir un método de obtención para representar la plantilla y el contexto.</p>
+<p>Quizás no sea el mejor enfoque. Al utilizar el código anterior, no es necesario que defina un formulario django.</p>
+<p>Así es como funciona: las vistas basadas en clase se separan de la 
+forma en que se procesa la plantilla, se procesa el formulario, etc. Al 
+igual que obtener la respuesta GET de los controladores, la respuesta 
+POST de los controladores posteriores, get_queryset y get_object se 
+explican por sí mismos, y así sucesivamente. La forma fácil de saber 
+cuál es el método disponible, encienda un shell y escriba:</p>
+<p>desde django.views.generic importa ListView si quieres saber acerca de ListView</p>
+<p>y luego escriba dir (ListView). Allí puede ver todos los métodos 
+definidos y visitar el código fuente para entenderlo. El método 
+get_queryset utilizado para obtener un queryset. Por qué no definirlo 
+así, funciona también:</p>
+<p></p>
+<pre class="prettyprint"><code><span class="kwd">class</span><span class="pln"> </span><span class="typ">FooView</span><span class="pun">(</span><span class="typ">ListView</span><span class="pun">):</span><span class="pln">
+    template_name </span><span class="pun">=</span><span class="pln"> </span><span class="str">'foo.html'</span><span class="pln">
+    queryset </span><span class="pun">=</span><span class="pln"> </span><span class="typ">Photo</span><span class="pun">.</span><span class="pln">objects</span><span class="pun">.</span><span class="pln">all</span><span class="pun">()</span><span class="pln"> </span><span class="com"># or anything</span></code></pre>
+<p>Podemos hacerlo como antes, pero no podemos hacer un filtrado 
+dinámico utilizando ese enfoque. Al usar get_queryset podemos hacer un 
+filtrado dinámico, usando cualquier dato / valor / información que 
+tengamos, significa que también podemos usar el parámetro de nombre 
+enviado por GET, y está disponible en kwargs, o en este caso, en 
+self.kwargs [” some_key “] donde some_key es cualquier parámetro que 
+haya especificado</p></div>
+<!-- codeday-me-top -->
+<ins class="adsbygoogle" style="display:inline-block;width:800px;height:90px" data-ad-client="ca-pub-4364680260425390" data-ad-slot="7215561100" data-adsbygoogle-status="done"><ins id="aswift_1_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:800px;background-color:transparent;"><ins id="aswift_1_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:800px;background-color:transparent;"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;border:0px;width:800px;height:90px;" width="800" height="90" frameborder="0"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+		<div class="relevant"><p>Artículos relacionados</p><ul class="relative_list"><li><a href="https://codeday.me/es/qa/20190213/171829.html" target="_blank" title="Vista basada en clase Django ListView con formulario">Vista basada en clase Django ListView con formulario</a></li><li><a href="https://codeday.me/es/qa/20190613/875298.html" target="_blank" title="Django ListView - Formulario para filtrar y ordenar">Django ListView - Formulario para filtrar y ordenar</a></li><li><a href="https://codeday.me/es/qa/20190627/932312.html" target="_blank" title="formulario de búsqueda de modelo django">formulario de búsqueda de modelo django</a></li><li><a href="https://codeday.me/es/qa/20190426/572463.html" target="_blank" title="python: ¿cómo puedo crear un formulario de búsqueda personalizado avanzado en django admin y usar la visualización de la lista de cambios de django admins?">python:
+ ¿cómo puedo crear un formulario de búsqueda personalizado avanzado en 
+django admin y usar la visualización de la lista de cambios de django 
+admins?</a></li><li><a href="https://codeday.me/es/qa/20190225/233873.html" target="_blank" title="Anulación de la función de herencia múltiple de Python y ListView en django">Anulación de la función de herencia múltiple de Python y ListView en django</a></li><li><a href="https://codeday.me/es/qa/20190210/196177.html" target="_blank" title="Django admin listview Personalizar nombre de columna">Django admin listview Personalizar nombre de columna</a></li><li><a href="https://codeday.me/es/qa/20190323/361681.html" target="_blank" title="Django - Mixing ListView y CreateView">Django - Mixing ListView y CreateView</a></li><li><a href="https://codeday.me/es/qa/20190702/972537.html" target="_blank" title="Paginación Django ListView usando get_queryset">Paginación Django ListView usando get_queryset</a></li></ul></div><div class="sourceurl"> <a href="https://codeday.me/es/?s=Django:%20formulario%20de%20b%C3%BAsqueda%20en%20ClassView%20ListView" target="_blank" title="Django: formulario de búsqueda en ClassView ListView Artículos relacionados">Haga clic para ver más artículos relacionados </a></div>		<p class="post-copyright">Por favor indique la dirección original：<a href="https://codeday.me/es/qa/20190129/131782.html">Django: formulario de búsqueda en ClassView ListView</a> - <a href="https://codeday.me/es">Código de registro</a></p>		</article>
+				<nav class="article-nav">
+<span class="article-nav-prev">Artículo anterior: <a href="https://codeday.me/es/qa/20190129/156832.html" rel="prev">c # – ¿Predicados condicionales en LINQ?</a></span>
+<span class="article-nav-next">Siguiente articulo: <a href="https://codeday.me/es/qa/20190129/136560.html" rel="next">python: ¿cómo realizar la desinstalación con virtualenv en la pila de cedros de Heroku?</a></span>
+</nav>
+<div class="article-content">
+<script async="" src="Django:%20formulario%20de%20b%C3%BAsqueda%20en%20ClassView%20ListView%20-%20C%C3%B3digo%20de%20registro_files/adsbygoogle.js"></script>
+<!-- codeday.me-728-90 -->
+<ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-4364680260425390" data-ad-slot="3747125781" data-adsbygoogle-status="done"><ins id="aswift_2_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent;"><ins id="aswift_2_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent;"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_2" name="aswift_2" style="left:0;position:absolute;top:0;border:0px;width:728px;height:90px;" width="728" height="90" frameborder="0"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+	</div>
+	</div>
+	<aside class="sidebar">
+<div class="widget widget_ui_ads"><div class="item"><script async="" src="Django:%20formulario%20de%20b%C3%BAsqueda%20en%20ClassView%20ListView%20-%20C%C3%B3digo%20de%20registro_files/adsbygoogle.js"></script>
+<!-- codeday.me 336-280 top -->
+<ins class="adsbygoogle" style="display:inline-block;width:336px;height:280px" data-ad-client="ca-pub-4364680260425390" data-ad-slot="8509441182" data-adsbygoogle-status="done"><ins id="aswift_3_expand" style="display:inline-table;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:336px;background-color:transparent;"><ins id="aswift_3_anchor" style="display:block;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:336px;background-color:transparent;"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_3" name="aswift_3" style="left:0;position:absolute;top:0;border:0px;width:336px;height:280px;" width="336" height="280" frameborder="0"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></div></div><div class="widget widget_ui_posts"><h3>Artículos relacionados</h3><ul class="nopic"><li><a href="https://codeday.me/es/qa/20190702/972537.html"><span class="text">Paginación Django ListView usando get_queryset</span></a></li><li><a href="https://codeday.me/es/qa/20190507/649093.html"><span class="text">Android - Resalta los resultados de búsqueda en ListView</span></a></li><li><a href="https://codeday.me/es/qa/20190326/383726.html"><span class="text">python - Django ListView personalizando queryset</span></a></li><li><a href="https://codeday.me/es/qa/20190630/956065.html"><span class="text">python - Django solo ordena ListView por fecha</span></a></li><li><a href="https://codeday.me/es/qa/20190316/317845.html"><span class="text">python - Filtra dinámicamente ListView CBV en Django 1.7</span></a></li><li><a href="https://codeday.me/es/qa/20190610/849646.html"><span class="text">python - Eliminar elementos de ListView en Django 1.5</span></a></li><li><a href="https://codeday.me/es/qa/20190312/297899.html"><span class="text">python - Vistas genéricas de Django: cuándo usar ListView en comparación con DetailView</span></a></li><li><a href="https://codeday.me/es/qa/20190423/547773.html"><span class="text">Android: ListView haciendo un filtro de búsqueda</span></a></li><li><a href="https://codeday.me/es/qa/20190509/666536.html"><span class="text">android - ListView de búsqueda múltiple</span></a></li><li><a href="https://codeday.me/es/qa/20190328/325329.html"><span class="text">ListView y CreateView en una plantilla Django</span></a></li></ul></div><div class="widget widget_ui_ads"><div class="item"><script async="" src="Django:%20formulario%20de%20b%C3%BAsqueda%20en%20ClassView%20ListView%20-%20C%C3%B3digo%20de%20registro_files/adsbygoogle.js"></script>
+<!-- codedayme-336-280-foot -->
+<ins class="adsbygoogle" style="display:inline-block;width:336px;height:280px" data-ad-client="ca-pub-4364680260425390" data-ad-slot="1588809615" data-adsbygoogle-status="done"><ins id="aswift_4_expand" style="display:inline-table;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:336px;background-color:transparent;"><ins id="aswift_4_anchor" style="display:block;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:336px;background-color:transparent;"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_4" name="aswift_4" style="left:0;position:absolute;top:0;border:0px;width:336px;height:280px;" width="336" height="280" frameborder="0"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></div></div></aside></section>
+
+<!--cos-html-cache-safe-tag-->
+<footer class="footer">
+	<div class="container"> 
+ <div class="fcode">  	  
+ 	  Derechos de autor © 2016-2018 <a href="https://codeday.me/es">Código de registro</a>.Todos los derechos reservados.  &nbsp; <br>
+    Adoptando con orgullo  <a href="https://es.wordpress.org/" class="imprint"> WordPress  </a>&nbsp;|&nbsp;<a href="https://codeday.me/es/about">Acerca de Blog</a>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="Django:%20formulario%20de%20b%C3%BAsqueda%20en%20ClassView%20ListView%20-%20C%C3%B3digo%20de%20registro_files/js.js"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-47026250-5');
+</script>
+
+</div></div>
+</footer> 
+<script>
+window.jsui={
+    www: 'https://codeday.me/es',
+    uri: 'https://codeday.me/es/wp-content/themes/es',
+    ver: '1.4',
+	roll: Array,
+    ajaxpager: '',
+    url_rp: ''
+};
+</script>
+<script type="text/javascript" src="Django:%20formulario%20de%20b%C3%BAsqueda%20en%20ClassView%20ListView%20-%20C%C3%B3digo%20de%20registro_files/jquery.js"></script>
+<script type="text/javascript" src="Django:%20formulario%20de%20b%C3%BAsqueda%20en%20ClassView%20ListView%20-%20C%C3%B3digo%20de%20registro_files/bootstrap.js"></script>
+<script type="text/javascript" src="Django:%20formulario%20de%20b%C3%BAsqueda%20en%20ClassView%20ListView%20-%20C%C3%B3digo%20de%20registro_files/GithubRepoWidget.js"></script>
+<script type="text/javascript" src="Django:%20formulario%20de%20b%C3%BAsqueda%20en%20ClassView%20ListView%20-%20C%C3%B3digo%20de%20registro_files/loader.js"></script>
+<script type="text/javascript" src="Django:%20formulario%20de%20b%C3%BAsqueda%20en%20ClassView%20ListView%20-%20C%C3%B3digo%20de%20registro_files/wp-embed.js"></script>
+
+
+<ins class="adsbygoogle adsbygoogle-noablate" style="display: none !important;" data-adsbygoogle-status="done"><ins id="aswift_5_expand" style="display:inline-table;border:none;height:0px;margin:0;padding:0;position:relative;visibility:visible;width:0px;background-color:transparent;"><ins id="aswift_5_anchor" style="display:block;border:none;height:0px;margin:0;padding:0;position:relative;visibility:visible;width:0px;background-color:transparent;"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_5" name="aswift_5" style="left:0;position:absolute;top:0;border:0px;width:0px;height:0px;" frameborder="0"></iframe></ins></ins></ins><iframe id="google_osd_static_frame_1217590639355" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;"></iframe>    <div class="m-mask"></div>    <div class="rollbar" style="display: block;"><ul><li><a href="javascript:(scrollTo());"><i class="fa fa-angle-up"></i></a><h6>Top<i></i></h6></li>    </ul></div><ul class="m-navbar">
+		<li class="page_item"><a href="https://codeday.me/es/tag/linux">Linux</a></li>
+		<li class="page_item"><a href="https://codeday.me/es/tag/python">Python</a></li>
+		<li class="page_item"><a href="https://codeday.me/es/tag/java">Java</a></li> 
+		<li class="page_item"><a href="https://codeday.me/es/tag/php">PHP</a></li>
+		<li class="page_item"><a href="https://codeday.me/es/tag/docker">Docker</a></li>
+		<li class="page_item"><a href="https://codeday.me/es/tag/nginx">Nginx</a></li>
+		<li class="page_item"><a href="https://codeday.me/es/tag/mysql">Mysql</a></li>
+		<li class="page_item"><a href="https://codeday.me/es/tag/javascript">JavaScript</a></li>
+		<li class="page_item"><a href="https://codeday.me/es/tag/android">Android</a></li>
+<li class="navto-search"><a href="javascript:;" class="search-show active"><i class="fa fa-search"></i></a></li>	
+</ul></body><iframe id="google_esf" name="google_esf" src="Django:%20formulario%20de%20b%C3%BAsqueda%20en%20ClassView%20ListView%20-%20C%C3%B3digo%20de%20registro_files/zrt_lookup.html" style="display: none;" data-ad-client="ca-pub-4364680260425390"></iframe></html>
+<!--this is a real static html file created at 2019-07-04 04:45:52 by cos-html-cache 2.7.3 -->

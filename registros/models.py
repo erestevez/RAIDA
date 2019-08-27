@@ -132,7 +132,7 @@ class registro(models.Model):
     ]
     usuario=models.CharField(max_length=50,unique=True)
     dirip = models.GenericIPAddressField(max_length=50,verbose_name="Direccion Ip",unique=True)
-    area = models.CharField(max_length=50, choices=chois,default='Areas')
+    area = models.CharField(max_length=200, choices=chois,default='Areas')
     aida=models.FileField(upload_to='registros/static/aidas', verbose_name="Reporte Aida", validators=[validate_aida,FileTypeValidator(allowed_types=['text/htm','text/html','application/octet-stream']),FileExtensionValidator(allowed_extensions=['html','htm'])])
     inven=models.CharField(max_length=50,unique=True)
     sello=models.CharField(max_length=50,unique=True)
