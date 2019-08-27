@@ -1,0 +1,9 @@
+README.rst
+setup.cfg
+setup.py
+django_upload_validator.egg-info/PKG-INFO
+django_upload_validator.egg-info/SOURCES.txt
+django_upload_validator.egg-info/dependency_links.txt
+django_upload_validator.egg-info/requires.txt
+django_upload_validator.egg-info/top_level.txt
+upload_validator/__init__.py

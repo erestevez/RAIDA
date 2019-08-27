@@ -1,0 +1,95 @@
+{% extends 'registros/base/base_registro.html' %}
+{% load staticfiles %}
+    {% block title %}
+    <title>Agregar Usuario</title>
+    {% endblock %}
+        {% block header2 %}
+            <header class="masthead text-center">
+                <div class="divider-custom">
+        <div class="divider-custom-line"></div>
+        <div class="divider-custom-icon">
+          <i>Agregar Usuarios</i>
+        </div>
+        <div class="divider-custom-line"></div>
+      </div>
+    </div>
+            {% if add.errors %}
+                    <div class="alert alert-danger">{{ add.errors }}</div>
+                {% elif not add.errors %}
+
+                {% elif add.changed_data %}
+                    <div class="alert alert-success">Agregado Correctamente</div>
+                {% endif %}
+         <div class="container d-flex align-items-center flex-column">
+
+              <form name="formulario" method="post" role="form" enctype="multipart/form-data" action="">
+            {% csrf_token %}
+            {{ add.usuario }}
+                  <br>
+            {{ add.area }}
+                  <br>
+            {{ add.dirip }}
+                  <br>
+            {{ add.inven }}
+                  <br>
+            {{ add.sello }}
+                  <br>
+               <div id="valid">
+            {{ add.aida }}
+                   <br>
+                   <p id="demo"></p>
+               </div>
+        <input class="btn btn-outline-dark" id="btnLoad" type="submit" onclick="return showFileSize();" value="agregar">
+                  
+        <script type='text/javascript'>
+        function showFileSize() {
+            var input, file;
+
+            if (!window.FileReader) {
+                alert("The file API isn't supported on this browser yet.");
+                return;
+            }
+
+            input = document.getElementById('fileinput');
+            if (!input) {
+                bodyAppend("p", "Um, couldn't find the fileinput element.");
+            }
+            else if (!input.files) {
+                bodyAppend("p", "This browser doesn't seem to support the `files` property of file inputs.");
+            }
+            else if (!input.files[0]) {
+                bodyAppend("p", "Please select a file before clicking 'Load'");
+            }
+            else {
+                file = input.files[0]; console.log(file);
+                if (file.size < 7000000) {
+                    bodyAppend("p", "File " + file.name + " is " + file.size + " bytes in size");
+                }
+                else {
+                    alert("Archivo demasiado Grande")
+                   return false;
+
+                }
+            }
+        }
+        function bodyAppend(tagName, innerHTML) {
+            var elm;
+
+            elm = document.createElement(tagName);
+            elm.innerHTML = innerHTML;
+            document.body.appendChild(elm);
+        }
+        </script>
+        </form>
+                  <div class="divider-custom">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon">
+                  <i class="fa fa-user"></i>
+                </div>
+                <div class="divider-custom-line"></div>
+             </header>
+
+        </div>
+             </div>
+            </div>
+        {% endblock %}

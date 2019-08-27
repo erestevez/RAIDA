@@ -1,0 +1,70 @@
+{% extends 'registros/base/base_registro.html' %}
+{% block title %}<title>Usuarios</title>{% endblock %}
+{% block header2 %}
+
+<br>
+<br>
+    <br>
+    <br>
+    <div class="card shadow m-4">
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                {% if perms.registros.change_registro %}
+
+                 {% else %}
+                    <div class="alert-danger">*Su usuario no tiene permisos para realizar cambios en el registro de usuarios</div>
+                  {% endif %}
+                     <thead>
+                      <tr>
+                        <th>Usuarios</th>
+                          <th>Nombre</th>
+                          <th>Staf?</th>
+                          <th>Active?</th>
+                      </tr>
+                    </thead>
+                    <tfoot>
+                      <tr>
+                        <th>Usuarios</th>
+                          <th>Nombre</th>
+                          <th>Staf?</th>
+                          <th>Active?</th>
+                      </tr>
+                    </tfoot>
+                    <tbody>
+                 {% for us in us %}
+                      <tr>
+                     <td>{{ us.username }}</td>
+                          <td>{{ us.first_name }}
+                          {% if us.is_staff == True %}
+                              <td><i class="fa fa-check">
+                              {% else %}
+                              <td><i class="fa fa-close">
+                          {% endif %}
+                          {% if us.is_active == True %}
+                              <td><i class="fa fa-check">
+                              {% else %}
+                              <td><i class="fa fa-close">
+                          {% endif %}
+
+
+
+
+
+
+
+                      </tr>
+                {% endfor %}
+                    </tbody>
+                </table>
+                <script>
+                    $( 'table' ).DataTable({
+                      "bServerSide": true;
+                      "sAjaxSource": "/table/as_json"
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+{% endblock %}

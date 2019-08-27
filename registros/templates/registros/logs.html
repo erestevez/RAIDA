@@ -1,0 +1,83 @@
+{% extends 'registros/base/base_registro.html' %}
+{% load staticfiles %}
+{% block title %}<title>Logs de Usuarios</title>{% endblock %}
+
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+
+</head>
+
+
+{% block header2 %}
+<br>
+<br>
+    <br>
+    <br>
+    <div class="card shadow m-4">
+
+        <div class="card-body">
+            <div class="table-responsive">
+            {% if logs %}
+                <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                     <thead>
+                      <tr>
+                          <th>#</th>
+                        <th>Usuarios</th>
+                        <th>Fecha</th>
+                        <th>Accion</th>
+                      </tr>
+                    </thead>
+                    <tfoot>
+                      <tr>
+                          <th>#</th>
+                        <th>Usuarios</th>
+                        <th>Fecha</th>
+                        <th>Accion</th>
+
+                      </tr>
+                    </tfoot>
+                    <tbody>
+                  {% for log in logs %}
+                      <tr>
+                          <td>
+                              {% if log.action_flag == 1 %}
+
+                                        <i class="fa fa-2x fa-plus"></i>
+                              {% elif log.action_flag == 2 %}
+                                  <i class="fa fa-2x fa-edit"></i>
+                              {% elif log.action_flag == 3 %}
+                                  <i class="fa fa-2x fa-trash"></i>
+                              {% endif %}
+
+
+                          </td>
+                       <td>{{ log.user }}</td>
+                       <td>{{ log.action_time|date:"m/d/Y - g:ia" }}</td>
+                       <td>{{ log }}</td>
+                      </tr>
+                  {% endfor %}
+
+                    </tbody>
+                </table>
+                <script>
+                    $( 'table' ).DataTable({
+                      "bServerSide": true;
+                      "sAjaxSource": "/table/as_json"
+                    });
+                </script>
+         {% else %}
+                      <p>No existen registros</p>
+         {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

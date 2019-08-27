@@ -1,0 +1,128 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+{% block head %}
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+{% endblock %}
+  {% block title %}<title></title>{% endblock %}
+{% block css %}
+<link rel="icon" href="{% static 'img/favicon_all.png' %}">
+  <link href="{% static 'css/css_regis/all.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'css/css_regis/freelancer.min.css' %}" rel="stylesheet">
+  <link href="{% static 'font/font-awesome-4.2.0/css/font-awesome.min.css' %}" rel="stylesheet">
+<link href="{% static 'datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+     <link href="{% static 'datatables/sb-admin-2.min.css' %}" rel="stylesheet">
+
+
+
+
+</head>
+{% endblock %}
+
+{% block header %}
+  <nav class="navbar navbar-shrink dropdown navbar-expand-lg bg-dark text-uppercase fixed-top" id="mainNav">
+    <div class="container">
+
+      <a class="navbar-brand js-scroll-trigger fa fa-3x fa-home" href="/home"> Registros Aida</a>
+      <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fa fa-openid"></i>
+      </button>
+      <div class="navbar-collapse collapse" id="navbarResponsive">
+        <ul class="nav navbar-nav ml-auto">
+          <li class="nav-item mx-0 mx-lg-1">
+            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger fa fa-1x fa-edit" href="/Agregar"> Agregar</a>
+          </li>
+          <li class="nav-item mx-0 mx-lg-1">
+            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger fa fa-1x fa-users" href="/modificar_cuenta"> Modificar Cuenta</a>
+          </li>
+            <li class="nav-item mx-0 mx-lg-1">
+            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger fa fa-1x fa-th-list" href="/Registro"> Listado</a>
+          </li>
+            {% if user.is_staff %}
+          <li class="nav-item mx-0 mx-lg-1 dropdown">
+              <a href="#" class="fa fa-cog nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger dropdown-toggle" data-toggle="dropdown">Panel Admin</a>
+            <ul class="nav-item  py-3 px-0 px-lg-3 rounded dropdown-menu">
+                <li><a class="fa fa-history dropdown-item" href="/logs"> Logs</a></li>
+                <li><a class="fa fa-user dropdown-item" href="/show_account"> Cuentas</a></li>
+                <li class="dropdown-divider"></li>
+                <li><a class="fa fa-plus dropdown-item" href="/add_account"> Agregar Cuenta</a></li>
+            </ul>
+          </li>
+            {% endif %}
+            <li class="nav-item mx-0 mx-lg-1">
+            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger fa fa-1x fa-lock" href="/logout"> Salir</a>
+          </li>
+        </ul>
+      </div>
+    </>
+  </nav>
+{% endblock %}
+{% block header2 %}
+
+        {% endblock %}
+
+{% block context %}
+
+{% endblock %}
+
+
+{% block footer %}
+
+<footer class="footer bg-dark text-center">
+    <div class="container bg-transparent">
+      <div class="row">
+        <div class="col-lg-4 mb-5 mb-lg-0">
+          <h4 class="text-uppercase mb-4">Instituto Finlay de Vacunas</h4>
+          <p class="lead mb-0 fa fa-circle-thin">Ave 21 No. 19810, entre 198 y 200 reparto Atabey, Playa, La Habana, Cuba.
+            <br><p class="fa fa-phone">Telf: (53)-7-208-0976</p>
+        </div>
+        <div class="col-lg-4 mb-5 mb-lg-0">
+          <h4 class="text-uppercase mb-4">Otros Enlaces</h4>
+          <a class="btn btn-outline-light btn-social mx-1" href="#">
+            <i class="fa fa-fw fa"></i>
+          </a>
+          <a class="btn btn-outline-light btn-social mx-1" href="#">
+            <i class="fa fa-fw "></i>
+          </a>
+          <a class="btn btn-outline-light btn-social mx-1" href="#">
+            <i class="fa fa-fw "></i>
+          </a>
+          <a class="btn btn-outline-light btn-social mx-1" href="#">
+            <i class="fa fa-fw "></i>
+          </a>
+        </div>
+        <div class="col-lg-4">
+            <a href="#"><div  class="text-uppercase mb-4 fa fa-5x fa-arrow-up"></div></a>
+        </div>
+
+      </div>
+    </div>
+  </footer>
+  <section class="copyright py-4 text-center bg-dark text-white">
+    <div class="container">
+      <small>Copyright &copy; Registros Aida</small>
+    </div>
+  </section>
+{% endblock %}
+
+
+
+{% block js %}
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+
+  <script src="{% static 'datatables/sb-admin-2.min.css' %}"></script>
+  <script src="{% static 'datatables/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'datatables/dataTables.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'datatables/datatables-demo.js' %}"></script>
+{% endblock %}
+
+
+</html>

@@ -1,0 +1,35 @@
+{% extends 'registros/base/base_registro.html' %}
+{% block title %}
+    <title>Crear Usuario</title>
+{% endblock %}
+{% block context %}
+    </center>
+    <header class="masthead text-center">
+    <div class="divider-custom">
+        <div class="divider-custom-line"></div>
+        <div class="divider-custom-icon">
+            <i>Agregar Cuenta</i>
+        </div>
+        <div class="divider-custom-line"></div>
+      </div>
+    </div>
+         <div class="container d-flex align-items-center flex-column">
+ <form method="post">
+{% csrf_token %}
+     {{ formulario.username }}
+     <br>
+     {{ formulario.password1 }}
+     <br>
+     {{ formulario.password2 }}
+     <br>
+     <input class="btn btn-outline-dark" type="submit" value="Agregar">
+    </form>
+         </div>
+    {% if formulario.changed_data %}
+     <div class="alert-danger">Opss Algo salio mal</div>
+     {% elif formulario.not.changed_data %}
+     <div class="alert-success">Usuario Agregardo Correctamente</div>
+        <a></a>
+     {% endif %}
+    </header>
+{% endblock %}
