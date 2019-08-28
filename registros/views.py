@@ -12,6 +12,8 @@ from django.contrib.auth import logout as do_logout
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import authenticate, AuthenticationForm, PasswordChangeForm, UserCreationForm
 from django.contrib.admin.models import LogEntry, ADDITION
+from django.views import generic
+from . import models
 
 # Create your views here.
 ####DEFINIENDO USUARIO STAFF#####
@@ -42,7 +44,13 @@ def login(request):
             user=authenticate(username=username, password=password)
             if user is not None:
                 do_login(request, user)
-                return redirect('home/')
+                if user.is_superuser:
+                    return redirect('logs/')
+                elif user.last_login =='':
+                    return redirect('modificar_cuenta/')
+                else:
+                    return redirect('home/')
+
     return render(request, 'registros/index_login.html', {'form': form})
 ######END CONFIGURATION LOGIN########
 
@@ -120,8 +128,7 @@ def editar(request, registro_id):
                     content_type_id=get_content_type_for_model(instancia).pk,
                     object_id=instancia.pk,
                     object_repr=str(instancia),
-                    action_flag=CHANGE
-
+                    action_flag=CHANGE,
                 )
                 return redirect('/Registro')
             else:
@@ -172,7 +179,33 @@ def add_account(request):
 ######END ADD ACCOUNT#######
 ######FORBIDDEN#######
 def forbidden(request):
-
-
-
     return render(request, 'registros/forbidden.html')
+###########################ADD AND REMOVE ACTIVE AND STAFF###############################
+#Agregando permisos de staff al usuario por el id
+def add_staff(request, pk):
+    instancia = User.objects.get(pk=pk)
+    instancia.is_staff=True
+    instancia.save()
+    return redirect('/show_account')
+
+#Quitando permisos de staff al usuario por el id
+def remove_staff(request, pk):
+    instancia = User.objects.get(pk=pk)
+    instancia.is_staff=False
+    instancia.save()
+    return redirect('/show_account')
+
+#Habilitando cuenta
+def add_active(request, pk):
+    instancia = User.objects.get(pk=pk)
+    instancia.is_active=True
+    instancia.save()
+    return redirect('/show_account')
+
+#Desabilitando cuenta
+def remove_active(reques, pk):
+    instancia = User.objects.get(pk=pk)
+    instancia.is_active=False
+    instancia.save()
+    return redirect('/show_account')
+
