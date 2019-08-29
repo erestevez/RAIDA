@@ -26,7 +26,7 @@ class subir(forms.ModelForm):
     def clean_usuario(self):
         usuario = self.cleaned_data['usuario']
         if not usuario.isalpha():
-            raise forms.ValidationError('El usuario no puede contener numeros')
+            raise forms.ValidationError('El usuario no puede contener numeros ni caracteres especiales(.+*,)')
         return usuario
 
 

@@ -22,6 +22,7 @@
                           <th>Nombre</th>
                           <th>Staf?</th>
                           <th>Active?</th>
+                          <th>Acciones</th>
                       </tr>
                     </thead>
                     <tfoot>
@@ -30,12 +31,13 @@
                           <th>Nombre</th>
                           <th>Staf?</th>
                           <th>Active?</th>
+                          <th>Acciones</th>
                       </tr>
                     </tfoot>
                     <tbody>
                  {% for us in us %}
                       <tr>
-                     <td>{{ us.username }}</td>
+                          <td><strong>{{ us.username }}</strong></td>
                           <td>{{ us.first_name }}
                           {% if us.is_staff == True %}
                               <td><i class="fa fa-check">
@@ -47,6 +49,18 @@
                               {% else %}
                               <td><i class="fa fa-close">
                           {% endif %}
+                          <td>
+                              {% if us.is_staff %}
+                                  <a onclick="return confirm('Desea quitarle los permisos de administrador a {{ us.username }}?')" href="/remove_staff/{{ us.pk }}"><button class="btn btn-outline-dark fa fa-minus-circle">Remove Staff</button></a>
+                              {% else %}
+                                  <a href="/add_staff/{{ us.pk }}"><button class="btn btn-outline-dark fa fa-plus-circle">Add Staff</button></a>
+                              {% endif %}
+                           {% if us.is_active == True %}
+                                  <a onclick="return confirm('Desea desabilitar la cuenta de {{ us.username }}?')" href="/remove_active/{{ us.pk }}"><button class="btn btn-outline-dark fa fa-minus-circle">Remove Active</button>
+                              {% else %}
+                                  <a href="/add_active/{{ us.pk }}"><button class="btn btn-outline-dark fa fa-plus-circle">Add Active</button></a>
+                              {% endif %}
+                          </td>
 
 
 

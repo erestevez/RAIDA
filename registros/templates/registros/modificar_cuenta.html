@@ -2,48 +2,53 @@
 {% block title %}
     <title>Modificar Cuenta</title>
 {% endblock %}
-{% block context %}
-    </center>
+{% block header2 %}
     <header class="masthead text-center">
-    <div class="divider-custom">
-        <div class="divider-custom-line"></div>
-        <div class="divider-custom-icon">
-          <i>Modificar Contrase&nacute;a</i>
+
+         <div class="alert-success">Por cuestiones de seguridad deberia cambiar su contrase&ntilde;a en el primer inicio
+            de sesion
         </div>
-        <div class="divider-custom-line"></div>
-      </div>
-    </div>
-         <div class="container d-flex align-items-center flex-column">
- <form method="post">
-{% csrf_token %}
-{{ mod.old_password }}
-     <br>
-{{ mod.new_password1 }}
-     <br>
-{{ mod.new_password2 }}
-     <br>
-     <input class="btn btn-outline-dark" type="submit" value="Modificar">
-    </form>
-         </div>
+
+
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon">
+                <i>Modificar Contrase&nacute;a</i>
+            </div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <div class="container d-flex align-items-center flex-column">
+            <form method="post">
+                {% csrf_token %}
+                {{ mod.old_password }}
+                <br>
+                {{ mod.new_password1 }}
+                <br>
+                {{ mod.new_password2 }}
+                <br>
+                <input class="btn btn-outline-dark" type="submit" value="Modificar">
+            </form>
+        </div>
         {% if mod.errors %}
-    </div>
-    <div class="divider-custom divider-light">
-        <div class="divider-custom-line"></div>
-        <div class="divider-custom-icon">
-          <i class="text-danger">La contrase&nacute;a debe de tener 8 digitos, mayusculas, y signos especiales(*+-.)</i>
-        </div>
-        <div class="divider-custom-line"></div>
-        <br>
-        <br>
-            {% else %}
+            </div>
+            <div class="divider-custom divider-light">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon">
+                <i class="text-danger">La contrase&nacute;a debe de tener 8 digitos, mayusculas, y signos
+                    especiales(*+-.)</i>
+            </div>
+            <div class="divider-custom-line"></div>
+            <br>
+            <br>
+        {% else %}
             <div class="divider-custom">
-        <div class="divider-custom-line"></div>
-        <div class="divider-custom-icon">
-          <i class="fa fa-edit"></i>
-        </div>
-        <div class="divider-custom-line"></div>
-        <br>
-        <br>
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon">
+                <i class="fa fa-edit"></i>
+            </div>
+            <div class="divider-custom-line"></div>
+            <br>
+            <br>
         {% endif %}
     </header>
 {% endblock %}

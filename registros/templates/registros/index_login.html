@@ -6,50 +6,63 @@
     <link rel="icon" href="{% static 'img/favicon_login.png' %}">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="{% static 'font/font-awesome-4.2.0/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/notie.css' %}">
     <style>
         body {
             background-image: url("{% static 'img/fondo.jpg' %}");
             background-size: 100%;
-            }
+        }
     </style>
 </head>
 
 <body>
-    <div id="container-login">
-        <div id="title">
-            <i class="fa fa-lock"></i> Login
-        </div>
-
-        <form method="post">{% csrf_token %}
-            <div class="input">
-                <div class="input-addon">
-                    <i class="fa fa-user"></i>
-                </div>
-                {{ form.username }}
-            </div>
-
-            <div class="clearfix"></div>
-
-            <div class="input">
-                <div class="input-addon">
-                    <i class="fa fa-key"></i>
-                </div>
-                {{ form.password }}
-            </div>
-
-            <div class="remember-me">
-                <input type="checkbox">
-                <span style="color: #DDD">Recordar Contrase&ntilde;a</span>
-            </div>
-
-            <input type="submit" value="Acceder" />
-            <div class="register">
-                <a href="#"><img src="{% static 'img/mantis.png' %}"></a>
-                <a href="#"><img class="img" src="{% static 'img/glpi.png' %}"></a>
-
-        </div>
-        </form>
+<div id="container-login">
+    <div id="title">
+        <i class="fa fa-lock"></i> Login
     </div>
+    <form method="post">{% csrf_token %}
+        <div class="input">
+            <div class="input-addon">
+                <i class="fa fa-user"></i>
+            </div>
+            {{ form.username }}
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="input">
+            <div class="input-addon">
+                <i class="fa fa-key"></i>
+            </div>
+            {{ form.password }}
+        </div>
+
+        <div class="remember-me">
+            <input type="checkbox">
+            <span style="color: #DDD">Recordar Contrase&ntilde;a</span>
+        </div>
+
+        <input type="submit" value="Acceder"/>
+        <div class="register">
+            <a href="#"><img src="{% static 'img/mantis.png' %}"></a>
+            <a href="#"><img class="img" src="{% static 'img/glpi.png' %}"></a>
+
+        </div>
+    </form>
+</div>
+<script src="{% static 'js/notie.js' %}"></script>
+<script>
+    function error() {
+        notie.alert({type: 3, text: 'Usuario o Contraseña incorrecta.', time: 4})
+    }
+</script>
+{% if form.errors %}
+    <script>
+
+    error();
+
+    </script>
+{% endif %}
+
 </body>
 
 </html>

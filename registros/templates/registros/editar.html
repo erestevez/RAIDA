@@ -1,37 +1,57 @@
 {% extends 'registros/base/base_registro.html' %}
-    {% block title %}
-    <title>Editar Usuario</title>>
-    {% endblock %}
-        {% block header2 %}
-         <br>
-    <br>
-    <br>
-    <br>
-    <div class="card shadow m-4">
-
-        <div class="card-body">
-            <div class="table-responsive">
-              <table class="table text-monospace table-responsive">
-                <thead>
-                    <tr>
-                        <td>Usuario</td>
-                        <td>Direccion Ip</td>
-
-                    </tr>
-                </thead>
-
-                <tbody>
-                     <form method="post">
-                        <tr>
-                            {% csrf_token %}
-                            <td>{{ form.as_p }}</td>
-                            <td><form href="/editar/{{ dat.id }}"><button class="btn btn-outline-dark">Editar</button></td>
-                        </tr>
-                     </form>
-                </tbody>
-              </table>
-             </div>
+{% load staticfiles %}
+{% block title %}
+    <title>Editar Usuario</title>
+{% endblock %}
+{% block header2 %}
+    <header class="masthead text-center">
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon">
+                <i>Editar</i>
+            </div>
+            <div class="divider-custom-line"></div>
         </div>
-    </div>
+        </div>
+        <div class="container d-flex align-items-center flex-column">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.usuario }}
+                <br>
+                {{ form.area }}
+                <br>
+                {{ form.dirip }}
+                <br>
+                {{ form.inven }}
+                <br>
+                {{ form.sello }}
+                <br>
+                {{ form.aida }}
+                <input class="btn btn-outline-dark" type="submit" value="Editar">
+            </form>
+        </div>
+        </div>
 
-        {% endblock %}
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon">
+                <i class="fa fa-edit"></i>
+            </div>
+            <div class="divider-custom-line"></div>
+            <br>
+            <br>
+    </header>
+    <script src="{% static 'js/notie.js' %}"></script>
+    <script>
+        function error() {
+            notie.alert({type: 3, text: '{{ form.errors }}', time: 4})
+        }
+    </script>
+    {% if form.errors %}
+        <script>
+
+            error();
+
+        </script>
+    {% endif %}
+{% endblock %}

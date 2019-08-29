@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import login, home, logout, agregar, regis, borrar, editar, modific, logs, show_account,add_account, forbidden
+from .views import login, home, logout, agregar, regis, borrar, editar, modific, logs, show_account,add_account,\
+    forbidden , add_staff , remove_staff , add_active , remove_active
 
 urlpatterns = [
     path('', login),
@@ -13,5 +14,9 @@ urlpatterns = [
     path('editar/<int:registro_id>', editar),
     path('modificar_cuenta/', modific),
     path('logs/', logs),
-    path('forbidden/', forbidden)
+    path('forbidden/', forbidden),
+    path('add_staff/<int:pk>', add_staff),
+    path('remove_staff/<int:pk>', remove_staff),
+    path('add_active/<int:pk>', add_active),
+    path('remove_active/<int:pk>', remove_active),
 ]

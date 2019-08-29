@@ -139,3 +139,11 @@ class registro(models.Model):
 
     def __str__(self):
         return self.usuario
+    def as_list(self):
+        return [
+            self.usuario,
+            self.dirip,
+            self.area,
+            self.inven,
+            self.sello,
+        ]

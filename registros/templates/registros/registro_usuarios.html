@@ -2,8 +2,8 @@
 {% load staticfiles %}
 {% block title %}<title>Registro de Usuarios</title>{% endblock %}
 {% block header2 %}
-<br>
-<br>
+    <br>
+    <br>
     <br>
     <br>
     <div class="card shadow m-4">
@@ -11,72 +11,98 @@
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
-                {% if perms.registros.change_registro %}
+                    {% if perms.registros.change_registro %}
 
-                 {% else %}
-                    <div class="alert-danger">*Su usuario no tiene permisos para realizar cambios en el registro de usuarios</div>
-                  {% endif %}
-                     <thead>
-                      <tr>
+                    {% else %}
+                        <div class="alert-danger">*Su usuario no tiene permisos para realizar cambios en el registro de
+                            usuarios
+                        </div>
+                    {% endif %}
+                    <thead>
+                    <tr>
                         <th>Usuarios</th>
                         <th>Direccion Ip</th>
                         <th>Area</th>
-                          <th>Sello Actual</th>
+                        <th>Sello Actual</th>
                         <th>Inventario</th>
-                          <th>Ver Aida</th>
-                          {% if perms.registros.change_registro %}
-                        <th>Acciones</th>
-                              {% else %}
-
-                          {% endif %}
-                      </tr>
-                    </thead>
-                    <tfoot>
-                      <tr>
-                        <th>Usuarios</th>
-                        <th>Direccion Ip</th>
-                        <th>Area</th>
-                          <th>Sello Actual</th>
-                        <th>Inventario</th>
-                          <th>Ver Aida</th>
-                         {% if perms.registros.change_registro %}
-                        <th>Acciones</th>
-                              {% else %}
-
-                          {% endif %}
-                      </tr>
-                    </tfoot>
-                    <tbody>
-                  {% for dat in dat %}
-
-
-                      <tr>
-                        <td class="text-gray-900 text-monospace">{{ dat.usuario }}</td>
-                        <td>{{ dat.dirip }}</td>
-                        <td>{{ dat.area }}</td>
-                          <td>{{ dat.sello }}
-                          <td>{{ dat.inven }}</td>
-
-                          <td><a href="{{ dat.aida.url }}"><div class="fa fa-2x fa-eye"></div></a></td>
-
-                          {% if perms.registros.change_registro %}
-                          <td><a onclick="return confirm('Seguro que quieres eliminar a {{ dat.usuario }}?');"
-                                 href="/borrar/{{ dat.id }}"><div class="fa fa-2x fa-trash"></div></a>
-
-                          <a href="/editar/{{ dat.id }}"><div class="fa fa-2x fa-edit"></div></a>
-
-                            </td>
+                        <th>Ver Aida</th>
+                        {% if perms.registros.change_registro %}
+                            <th>Acciones</th>
+                        {% else %}
 
                         {% endif %}
-                      </tr>
-                  {% endfor %}
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Usuarios</th>
+                        <th>Direccion Ip</th>
+                        <th>Area</th>
+                        <th>Sello Actual</th>
+                        <th>Inventario</th>
+                        <th>Ver Aida</th>
+                        {% if perms.registros.change_registro %}
+                            <th>Acciones</th>
+                        {% else %}
+
+                        {% endif %}
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    {% for dat in dat %}
+
+
+                        <tr>
+                            <td class="text-gray-900 text-monospace">{{ dat.usuario }}</td>
+                            <td>{{ dat.dirip }}</td>
+                            <td>{{ dat.area }}</td>
+                            <td>{{ dat.sello }}
+                            <td>{{ dat.inven }}</td>
+
+                            <td><a href="{{ dat.aida.url }}">
+                                <div class="fa fa-2x fa-eye"></div>
+                            </a></td>
+
+                            {% if perms.registros.change_registro %}
+                                <td><a onclick="return confirm('asdasd');">
+                                    <div class="fa fa-2x fa-trash"></div>
+                                </a>
+
+                                    <a href="/editar/{{ dat.id }}">
+                                        <div class="fa fa-2x fa-edit"></div>
+                                    </a>
+
+                                </td>
+                                <script src="{% static 'js/notie.js' %}"></script>
+                                <script>
+
+                                    function confirm() {
+                                        notie.confirm({
+                                            text: 'Seguro desea eliminar a {{ dat.usuario }}',
+                                            cancelCallback: function () {
+                                                notie.alert({type: 3, text: 'Buena eleccion :)', time: 2})
+                                            },
+                                            submitCallback: function () {
+                                                window.location.href='/borrar/{{ dat.id }}'
+                                            }
+                                        })
+                                    }
+
+                                </script>
+
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
 
                     </tbody>
                 </table>
                 <script>
-                    $( 'table' ).DataTable({
-                      "bServerSide": true;
-                      "sAjaxSource": "/table/as_json"
+                    $(document).ready(function () {
+                        $('#dataTable').DataTable({
+                            "processing": true,
+                            "serverSide": true,
+                            "ajax": "scripts/server_processing.php"
+                        });
                     });
                 </script>
             </div>
