@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import login, home, logout, agregar, regis, borrar, editar, modific, logs, show_account,add_account,\
-    forbidden , add_staff , remove_staff , add_active , remove_active
+    forbidden , add_staff , remove_staff , add_active , remove_active, OrderListJson
 
 urlpatterns = [
     path('', login),
@@ -19,4 +19,5 @@ urlpatterns = [
     path('remove_staff/<int:pk>', remove_staff),
     path('add_active/<int:pk>', add_active),
     path('remove_active/<int:pk>', remove_active),
+    path('my/datatable/data/', OrderListJson.as_view(), name='order_list_json'),
 ]
