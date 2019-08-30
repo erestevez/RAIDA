@@ -3,7 +3,7 @@ from django.contrib.admin.options import get_content_type_for_model
 from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
 from django.contrib.auth.models import User
 from django.http import request, HttpResponse
-from django.shortcuts import render, redirect, render_to_response
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import subir
 from .models import registro
@@ -13,7 +13,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import authenticate, AuthenticationForm, PasswordChangeForm, UserCreationForm
 from django.contrib.admin.models import LogEntry, ADDITION
 from django.views import generic
-from . import models
+from  django_datatables_view.base_datatable_view import BaseDatatableView
 
 
 # Create your views here.
@@ -235,3 +235,29 @@ def remove_active(reques, pk):
     instancia.is_active = False
     instancia.save()
     return redirect('/show_account')
+##############################################################################################
+
+###############################DATATABLE SERVER SIDE##########################################
+class OrderListJson(BaseDatatableView):
+    model = registro
+    columns = ['usuario', 'dirip', 'area', 'aida', 'inven', 'sello']
+    order_columns = ['usuario', 'dirip', 'area']
+    max_display_length = 500
+    def render_column(self, row, column):
+        if column == 'user':
+            return '%s %s' % (row.customer_firstname, row.customer_lastname)
+        else:
+            return super(OrderListJson, self).render_column(row, column)
+    def filter_queryset(self, qs):
+        sSearch = self.request.POST.get('sSearch', None)
+        if sSearch:
+            qs = qs.filter(name__istartswith=sSearch)
+        filter_customer = self.request.POST.get('customer', None)
+        if filter_customer:
+            customer_parts = filter_customer.split(' ')
+            qs_params = None
+            for part in customer_parts:
+                q = Q(customer_firstname__istartswith=part) | Q(customer_lastname__istartswith=part)
+                qs_params = qs_params | q if qs_params else q
+            qs = qs.filter(qs_params)
+        return qs
