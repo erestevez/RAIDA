@@ -1,15 +1,10 @@
 {% extends 'registros/base/base_registro.html' %}
+{% load staticfiles %}
 {% block title %}
     <title>Modificar Cuenta</title>
 {% endblock %}
 {% block header2 %}
     <header class="masthead text-center">
-
-         <div class="alert-success">Por cuestiones de seguridad deberia cambiar su contrase&ntilde;a en el primer inicio
-            de sesion
-        </div>
-
-
         <div class="divider-custom">
             <div class="divider-custom-line"></div>
             <div class="divider-custom-icon">
@@ -29,26 +24,34 @@
                 <input class="btn btn-outline-dark" type="submit" value="Modificar">
             </form>
         </div>
-        {% if mod.errors %}
-            </div>
-            <div class="divider-custom divider-light">
-            <div class="divider-custom-line"></div>
-            <div class="divider-custom-icon">
-                <i class="text-danger">La contrase&nacute;a debe de tener 8 digitos, mayusculas, y signos
-                    especiales(*+-.)</i>
-            </div>
-            <div class="divider-custom-line"></div>
-            <br>
-            <br>
-        {% else %}
-            <div class="divider-custom">
+
+        <div class="divider-custom">
             <div class="divider-custom-line"></div>
             <div class="divider-custom-icon">
                 <i class="fa fa-edit"></i>
             </div>
             <div class="divider-custom-line"></div>
-            <br>
-            <br>
-        {% endif %}
     </header>
+    <script>
+        {% if user.boolean is False %}
+            Swal.fire({
+                title: 'Por cuestiones de seguridad debe cambiar su contrasenna en el primer inicio de session.',
+                width: 600,
+                padding: '3em',
+                background: '#fff url()',
+                backdrop: `
+        rgba(0,0,0,1)`
+            })
+        {% endif %}
+    </script>
+    <script>
+        {% if mod.errors %}
+            Swal.fire({
+                type: 'error',
+                title: 'Error Cambiando Contrasenna',
+                text: 'La contrasenna debe de tener Mayusculas, signos especiales(*.+-), no debe de contener parte del nombre de usuario y debe de contener digitos',
+                footer: '<a href="#">Contacte Con el admin</a>'
+            })
+        {% endif %}
+    </script>
 {% endblock %}

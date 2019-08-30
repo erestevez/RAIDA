@@ -53,8 +53,7 @@ def login(request):
                 if user.boolean==True:
                     return redirect('home/')
                 else:
-                    user.boolean=True
-                    user.save()
+
                     return redirect('modificar_cuenta/')
     return render(request, 'registros/index_login.html', {'form': form})
 
@@ -161,6 +160,8 @@ def modific(request):
         if mod.is_valid():
             user = mod.save()
             update_session_auth_hash(request, user)
+            user.boolean = True
+            user.save()
             messages.success(request, 'Contrasenna Cambiada Correctamente')
             return redirect('/')
         else:

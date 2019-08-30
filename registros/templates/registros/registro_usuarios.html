@@ -64,7 +64,7 @@
                             </a></td>
 
                             {% if perms.registros.change_registro %}
-                                <td><a onclick="return confirm('asdasd');">
+                                <td><a href="#" onclick="boo()">
                                     <div class="fa fa-2x fa-trash"></div>
                                 </a>
 
@@ -75,19 +75,39 @@
                                 </td>
                                 <script src="{% static 'js/notie.js' %}"></script>
                                 <script>
-
-                                    function confirm() {
-                                        notie.confirm({
-                                            text: 'Seguro desea eliminar a {{ dat.usuario }}',
-                                            cancelCallback: function () {
-                                                notie.alert({type: 3, text: 'Buena eleccion :)', time: 2})
+                                    function boo() {
+                                        const swalWithBootstrapButtons = Swal.mixin({
+                                            customClass: {
+                                                confirmButton: 'btn btn-success',
+                                                cancelButton: 'btn btn-danger'
                                             },
-                                            submitCallback: function () {
-                                                window.location.href='/borrar/{{ dat.id }}'
+                                            buttonsStyling: false
+                                        })
+
+                                        swalWithBootstrapButtons.fire({
+                                            title: 'Desea Eliminar a {{ dat.usuario }}',
+                                            text: "Esta opcion eliminara todos los datos de {{ dat.usuario }}",
+                                            type: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonText: 'Si Borrarlo',
+                                            cancelButtonText: 'No, Cancelar!',
+                                            reverseButtons: true
+                                        }).then((result) => {
+                                            if (result.value) {
+
+                                                window.location.href = ('/borrar/{{ dat.id }}')
+                                            } else if (
+                                                /* Read more about handling dismissals below */
+                                                result.dismiss === Swal.DismissReason.cancel
+                                            ) {
+                                                swalWithBootstrapButtons.fire(
+                                                    'Cancelado',
+                                                    'El usuario no ha sido borrado :)',
+                                                    'error'
+                                                )
                                             }
                                         })
                                     }
-
                                 </script>
 
                             {% endif %}

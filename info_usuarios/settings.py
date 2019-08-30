@@ -25,7 +25,7 @@ SECRET_KEY = '&ytk-w=((55cy^^a-2url^mcrb9yfq$&7%$f2377r__&9&js@u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.3.159']
+ALLOWED_HOSTS = []
 
 
 # Application definition

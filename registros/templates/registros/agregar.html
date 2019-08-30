@@ -90,14 +90,19 @@
     </div>
     </div>
     <script src="{% static 'js/notie.js' %}"></script>
-    <script>
-        function error() {
-            notie.alert({type: 3, text: '{{ add.errors }}.', time: 10})
-        }
-    </script>
     {% if add.errors %}
         <script>
-            error();
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 8000
+            })
+
+            Toast.fire({
+                type: 'error',
+                title: '{{ add.errors }}'
+            })
         </script>
     {% endif %}
 {% endblock %}
